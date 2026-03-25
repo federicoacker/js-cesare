@@ -18,6 +18,7 @@ const alfabeto = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p
 const ultimoIndiceAlfabeto = alfabeto.length - 1; //Ultimo indice dell'alfabeto
 const lunghezzaAlfabeto = alfabeto.length; // Lunghezza dell'alfabeto
 const SHIFT = 3; // numero di posizioni da spostare
+const regex = /\p{P}/u; //Regex per assicurarci che i valori siano lettere e non ad esempio segni di punteggiatura
 
 // Chiedi il messaggio all'utente e convertilo in minuscolo
 const messaggio = prompt("Inserisci il messaggio da cifrare:").toLowerCase().trim();
@@ -30,7 +31,7 @@ let messaggioCifrato = "";
 
 for (let i = 0; i < messaggio.length; i++) {
     const currentChar = messaggio[i];
-    if(currentChar !== " "){ // Se il char corrente non è uno spazio
+    if(currentChar !== " " && !regex.test(currentChar)){ // Se il char corrente non è uno spazio o un segno di punteggiatura
         const indiceLettera = alfabeto.indexOf(currentChar); //Vediamo quale sarebbe l'indice della nostra lettera corrente del messaggio, all'interno dell'alfabeto
         const letteraDaInserire = //Facciamo un controllo
         (indiceLettera + SHIFT <= ultimoIndiceAlfabeto) // Se aggiungendo il nostro valore SHIFT rimaniamo comunque all'interno dell'array alfabeto
@@ -41,24 +42,36 @@ for (let i = 0; i < messaggio.length; i++) {
 
         messaggioCifrato += letteraDaInserire; // A questo punto semplicemente accodiamo la lettera alla stringa;
 
-    }else { // Se è uno spazio
-        messaggioCifrato += " "; // Aggiungiamo lo spazio
+    }else { // Se è uno spazio o un segno di punteggiatura
+        messaggioCifrato += currentChar; // Aggiungiamo il carattere senza cambiarlo
     }
 }
 
+// 
+//   SFIDA EXTRA (opzionale)
+//   -----------------------
+//   Riesci a decifrare il messaggio? Prova a implementare la funzione inversa:
+//   invece di sommare SHIFT, sottrailo (attenzione al wrap-around in senso opposto!).
+
+let messaggioDecifrato = '';
+
+for(let i = 0; i < messaggioCifrato.length; i++){
+    const currentChar = messaggioCifrato[i];
+    if(currentChar !== " " && !regex.test(currentChar)){ // Se il char corrente non è uno spazio o un segno di punteggiatura
+        const indiceLettera = alfabeto.indexOf(currentChar); //Vediamo quale sarebbe l'indice della nostra lettera corrente del messaggio cifrato, all'interno dell'alfabeto
+        const letteraDaInserire = //Facciamo un controllo
+        (indiceLettera - SHIFT < 0) //Se sottraendo il nostro valore SHIFT, andiamo in negativo con l'indice
+        ? alfabeto[indiceLettera - SHIFT + lunghezzaAlfabeto] // Allora facciamo il wrap andando alla fine dell'alfabeto e sottraendo quello che ci avanzava (indiceLettera - SHIFT)
+        : alfabeto[indiceLettera - SHIFT]; //Altrimenti non siamo andati in negativo con l'indice quindi non è un problema e prendiamo la lettera normalmente con lo SHIFT.
+
+        messaggioDecifrato += letteraDaInserire; //Aggiungiamo la lettera al messaggio Decifrato
+    } else { // Se è uno spazio o un segno di punteggiatura
+        messaggioDecifrato += currentChar; //Aggiungiamo il carattere senza cambiarlo
+    }
+}
 
 // --- OUTPUT ---
 
-console.log("Messaggio originale:", messaggio);
-console.log("Messaggio cifrato:", messaggioCifrato);
-
-
-/**
- * SFIDA EXTRA (opzionale)
- * -----------------------
- * Riesci a decifrare il messaggio? Prova a implementare la funzione inversa:
- * invece di sommare SHIFT, sottrailo (attenzione al wrap-around in senso opposto!).
- *
- * Suggerimento per il wrap-around inverso:
- *   (indice - SHIFT + alfabeto.length) % alfabeto.length
- */
+console.log("Messaggio Originale:", messaggio);
+console.log("Messaggio Cifrato:", messaggioCifrato);
+console.log("Messaggio Decifrato di nuovo:", messaggioDecifrato);
