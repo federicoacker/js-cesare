@@ -20,7 +20,7 @@ const lunghezzaAlfabeto = alfabeto.length; // Lunghezza dell'alfabeto
 const SHIFT = 3; // numero di posizioni da spostare
 const regex = /\p{P}/u; //Regex per assicurarci che i valori siano lettere e non ad esempio segni di punteggiatura
 
-// Chiedi il messaggio all'utente e convertilo in minuscolo
+// Chiedi il messaggio all'utente e convertilo in minuscolo e togli spazi all'inizio e alla fine
 const messaggio = prompt("Inserisci il messaggio da cifrare:").toLowerCase().trim();
 
 // Variabile che conterrà il messaggio cifrato (inizia vuota)
