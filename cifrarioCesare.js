@@ -31,7 +31,7 @@ let messaggioCifrato = "";
 for (let i = 0; i < messaggio.length; i++) {
     const currentChar = messaggio[i];
     const indiceLettera = alfabeto.indexOf(currentChar); //Vediamo quale sarebbe l'indice della nostra lettera corrente del messaggio, all'interno dell'alfabeto
-    if(indiceLettera !== -1){ // Se il char corrente non è uno spazio o un segno di punteggiatura
+    if(indiceLettera !== -1){ // Se il char corrente non è uno spazio o un segno di punteggiatura o un razzo missile o qualsiasi altra cosa
         const letteraDaInserire = //Facciamo un controllo
         (indiceLettera + SHIFT <= ultimoIndiceAlfabeto) // Se aggiungendo il nostro valore SHIFT rimaniamo comunque all'interno dell'array alfabeto
         ? alfabeto[indiceLettera + SHIFT] // Allora la lettera da inserire è semplicemente la lettera dell'alfabeto shiftata di valore SHIFT
@@ -57,7 +57,7 @@ let messaggioDecifrato = '';
 for(let i = 0; i < messaggioCifrato.length; i++){
     const currentChar = messaggioCifrato[i];
     const indiceLettera = alfabeto.indexOf(currentChar); //Vediamo quale sarebbe l'indice della nostra lettera corrente del messaggio cifrato, all'interno dell'alfabeto
-    if(indiceLettera !== -1){ // Se il char corrente non è uno spazio o un segno di punteggiatura
+    if(indiceLettera !== -1){ // Se il char corrente non è uno spazio o un segno di punteggiatura o un razzo missile o qualsiasi altra cosa
         const letteraDaInserire = //Facciamo un controllo
         (indiceLettera - SHIFT < 0) //Se sottraendo il nostro valore SHIFT, andiamo in negativo con l'indice
         ? alfabeto[indiceLettera - SHIFT + lunghezzaAlfabeto] // Allora facciamo il wrap andando alla fine dell'alfabeto e sottraendo quello che ci avanzava (indiceLettera - SHIFT)
