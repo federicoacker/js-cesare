@@ -15,8 +15,8 @@
 
 // Array con tutte le lettere dell'alfabeto (già pronto!)
 const alfabeto = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-const ultimoIndiceAlfabeto = alfabeto.length - 1; //Ultimo indice dell'alfabeto
 const lunghezzaAlfabeto = alfabeto.length; // Lunghezza dell'alfabeto
+const ultimoIndiceAlfabeto = lunghezzaAlfabeto - 1; //Ultimo indice dell'alfabeto
 const SHIFT = 3; // numero di posizioni da spostare
 
 // Chiedi il messaggio all'utente e convertilo in minuscolo e togli spazi all'inizio e alla fine
